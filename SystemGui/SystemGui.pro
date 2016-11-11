@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+CONFIG += thread
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -13,7 +14,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp\
+        connectTCPclient.cpp
 
 HEADERS  += mainwindow.h
 

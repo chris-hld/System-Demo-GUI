@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include "connectTCPclient.cpp"
 
 int main(int argc, char *argv[])
 {
@@ -11,6 +12,8 @@ int main(int argc, char *argv[])
     window.show();
 
     window.show();
+
+    connect_me("local", 8080);
 
     return app.exec();
 }
