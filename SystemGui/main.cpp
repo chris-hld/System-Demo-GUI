@@ -13,7 +13,11 @@ int main(int argc, char *argv[])
 
     window.show();
 
-    connect_me("local", 8080);
+    if (argc > 1 && argv[1] == std::string("-tcp")) {
+      char* hostname = argv[1];
+      int portno = atoi(argv[2]);
+      connect_me(hostname, portno);
+    }
 
     return app.exec();
 }
