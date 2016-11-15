@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
     window.show();
 
     if (argc > 1 && argv[1] == std::string("-tcp")) {
-      char* hostname = argv[1];
-      int portno = atoi(argv[2]);
+      char* hostname = argv[2];
+      int portno = atoi(argv[3]);
       connect_me(hostname, portno);
     }
 
