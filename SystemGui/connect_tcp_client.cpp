@@ -16,6 +16,7 @@ http://www.linuxhowtos.org/C_C++/socket.htm
 Compile: g++ -std=c++0x TCPclient.cpp -o client -pthread
 */
 
+
 void error(const char *msg)
 {
     perror(msg);
@@ -84,7 +85,7 @@ void connect_me(const char* hostname, int portno)
         error("ERROR connecting");
 
     // Transmission
-    printf("Connection established: \n");
+    printf("--- Connection established --- \n");
 
     std::thread reading (read_TCP, sockfd);     // spawn new thread
     std::thread writing (write_TCP, sockfd);  // spawn new thread
@@ -94,4 +95,9 @@ void connect_me(const char* hostname, int portno)
 
     close(sockfd);
     //return 0;
+}
+
+void connect_viaButton(const char* hostname, int portno)
+{
+    connect_me(hostname, portno);
 }

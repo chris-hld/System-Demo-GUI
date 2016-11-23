@@ -27,7 +27,8 @@ private:
     QPushButton *connectHost_button;
 
 private slots:
-    void slotButtonClicked(bool checked);
+    void slotConnectClicked(bool checked);
+    void slotSystemClicked();
 };
 
 #endif // MAINWINDOW_H

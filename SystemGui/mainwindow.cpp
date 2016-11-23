@@ -1,4 +1,5 @@
 #include <thread>         // std::thread
+#include <iostream>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -32,7 +33,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(EXIT, SIGNAL (clicked()),
             QApplication::instance(), SLOT (quit()));
     connect(connectHost_button, SIGNAL (clicked(bool)),
-            this, SLOT (slotButtonClicked(bool)));
+            this, SLOT (slotConnectClicked(bool)));
+
+    connect(stereo_button, SIGNAL (clicked()),
+            this,  SLOT (slotSystemClicked()));
+    connect(surround_button, SIGNAL (clicked()),
+            this,  SLOT (slotSystemClicked()));
+    connect(wfs_button, SIGNAL (clicked()),
+            this,  SLOT (slotSystemClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -40,12 +48,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void connect_viaButton(const char* hostname, int portno)
-{
-    connect_me(hostname, portno);
-}
 
-void MainWindow::slotButtonClicked(bool checked)
+void MainWindow::slotConnectClicked(bool checked)
 {
     if (checked) {
       connectHost_button->setText("Connected");
@@ -58,4 +62,9 @@ void MainWindow::slotButtonClicked(bool checked)
     } else {
       connectHost_button->setText("Empty");
     }
+}
+
+void MainWindow::slotSystemClicked()
+{
+//TODO
 }
