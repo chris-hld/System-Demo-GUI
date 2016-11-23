@@ -24,7 +24,7 @@ private:
     QPushButton *surround_button;
     QPushButton *wfs_button;
     QPushButton *EXIT;
-    QPushButton *connectHost;
+    QPushButton *connectHost_button;
 
 private slots:
     void slotButtonClicked(bool checked);

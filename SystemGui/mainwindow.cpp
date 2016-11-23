@@ -1,5 +1,8 @@
+#include <thread>         // std::thread
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "connect_tcp_client.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,15 +23,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     EXIT = new QPushButton("EXIT", this);
     EXIT->move(10, 10);
-    connectHost = new QPushButton("connect", this);
-    connectHost->setCheckable( true );
-    connectHost->move(100, 10);
+    connectHost_button = new QPushButton("connect", this);
+    connectHost_button->setCheckable( true );
+    connectHost_button->move(100, 10);
 
 
     // Do the connection
     connect(EXIT, SIGNAL (clicked()),
             QApplication::instance(), SLOT (quit()));
-    connect(connectHost, SIGNAL (clicked(bool)),
+    connect(connectHost_button, SIGNAL (clicked(bool)),
             this, SLOT (slotButtonClicked(bool)));
 }
 
@@ -37,11 +40,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void connect_viaButton(const char* hostname, int portno)
+{
+    connect_me(hostname, portno);
+}
+
 void MainWindow::slotButtonClicked(bool checked)
 {
     if (checked) {
-        connectHost->setText("Remote");
+      connectHost_button->setText("Connected");
+      //connect_viaButton();
+      const char* hostname = "localhost";
+      int portno = 8080;
+      std::thread connectButtonThread (connect_viaButton, hostname, portno);
+      connectButtonThread.detach();  // don't wait for it
+
     } else {
-        connectHost->setText("Local");
+      connectHost_button->setText("Empty");
     }
 }
