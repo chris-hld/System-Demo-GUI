@@ -36,11 +36,11 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT (slotConnectClicked(bool)));
 
     connect(stereo_button, SIGNAL (clicked()),
-            this,  SLOT (slotSystemClicked()));
+            this,  SLOT (slotSystemAClicked()));
     connect(surround_button, SIGNAL (clicked()),
-            this,  SLOT (slotSystemClicked()));
+            this,  SLOT (slotSystemBClicked()));
     connect(wfs_button, SIGNAL (clicked()),
-            this,  SLOT (slotSystemClicked()));
+            this,  SLOT (slotSystemCClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -64,7 +64,21 @@ void MainWindow::slotConnectClicked(bool checked)
     }
 }
 
-void MainWindow::slotSystemClicked()
+//TODO: Connect with TCP
+void MainWindow::slotSystemAClicked()
 {
-//TODO
+  QTextStream out(stdout);
+  out << "A" << endl;
+}
+
+void MainWindow::slotSystemBClicked()
+{
+  QTextStream out(stdout);
+  out << "B" << endl;
+}
+
+void MainWindow::slotSystemCClicked()
+{
+  QTextStream out(stdout);
+  out << "C" << endl;
 }

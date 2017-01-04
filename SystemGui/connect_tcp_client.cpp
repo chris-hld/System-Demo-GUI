@@ -27,11 +27,12 @@ void read_TCP(int sockfd)
 {
     int n;
     char buffer[256];
+    bzero(buffer,256);
 
     while(1) {  // Keep connection open
-        bzero(buffer,256);
-        fgets(buffer,255,stdin);
-        n = send(sockfd,buffer,strlen(buffer), 0);
+        if (fgets(buffer,255,stdin) != NULL){
+          n = send(sockfd,buffer,strlen(buffer), 0);
+        }
         if (n < 0){
             error("ERROR writing to socket");
             break;
@@ -43,9 +44,9 @@ void write_TCP(int sockfd)
 {
     int n;
     char buffer[256];
+    bzero(buffer,256);
 
     while(1) {  // Keep connection open
-        bzero(buffer,256);
         n = recv(sockfd,buffer,255, 0);
         if (n < 0){
             error("ERROR reading from socket");

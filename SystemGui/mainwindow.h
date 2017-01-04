@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QTextStream>
 
 
 namespace Ui {
@@ -28,7 +29,10 @@ private:
 
 private slots:
     void slotConnectClicked(bool checked);
-    void slotSystemClicked();
+    void slotSystemAClicked();
+    void slotSystemBClicked();
+    void slotSystemCClicked();
+
 };
 
 #endif // MAINWINDOW_H
