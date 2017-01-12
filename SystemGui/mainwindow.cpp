@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "connect_tcp_client.h"
+#include "parameter.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -54,8 +55,9 @@ void MainWindow::slotConnectClicked(bool checked)
     if (checked) {
       connectHost_button->setText("Connected");
       //connect_viaButton();
-      const char* hostname = "localhost";
-      int portno = 8080;
+      extern Parameter global_socket;
+      const char* hostname = global_socket.getHostname();
+      const int portno = global_socket.getPortno();
       std::thread connectButtonThread (connect_viaButton, hostname, portno);
       connectButtonThread.detach();  // don't wait for it
 
@@ -69,16 +71,20 @@ void MainWindow::slotSystemAClicked()
 {
   QTextStream out(stdout);
   out << "A" << endl;
+  send_TCP("A \n");
+
 }
 
 void MainWindow::slotSystemBClicked()
 {
   QTextStream out(stdout);
   out << "B" << endl;
+  send_TCP("B \n");
 }
 
 void MainWindow::slotSystemCClicked()
 {
   QTextStream out(stdout);
   out << "C" << endl;
+  send_TCP("C \n");
 }

@@ -8,8 +8,8 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <thread>         // std::thread
-
-
+#include "connect_tcp_client.h"
+#include "parameter.h"
 /* Syntax: client <ServerIP> <Port>
 Adapted from:
 http://www.linuxhowtos.org/C_C++/socket.htm
@@ -56,6 +56,7 @@ void write_TCP(int sockfd)
     }
 }
 
+
 void connect_me(const char* hostname, int portno)
 {
     int sockfd;
@@ -85,6 +86,10 @@ void connect_me(const char* hostname, int portno)
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
         error("ERROR connecting");
 
+    extern Parameter global_socket;
+    global_socket.setSocket(sockfd);
+    printf("Socket: %d\n",global_socket.getSocket());
+
     // Transmission
     printf("--- Connection established --- \n");
 
@@ -101,4 +106,16 @@ void connect_me(const char* hostname, int portno)
 void connect_viaButton(const char* hostname, int portno)
 {
     connect_me(hostname, portno);
+}
+
+void send_TCP(const char *msg)
+{
+    int n;
+    extern Parameter global_socket;
+
+    n = send(global_socket.getSocket(), msg, strlen(msg), 0);
+    if (n < 0){
+        error("ERROR writing to socket");
+    }
+
 }
