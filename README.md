@@ -26,4 +26,4 @@ Starts the GUI and connects to `theHost` port `8060` via TCP.
 
 The button `Stereo` sends an "A", `Surround` a "B" and `WFS` a "C".
 
-`EXIT` terminates.
+`EXIT` closes socket and terminates.

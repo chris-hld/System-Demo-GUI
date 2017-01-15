@@ -29,6 +29,7 @@ private:
 
 private slots:
     void slotConnectClicked(bool checked);
+    void slotConnectExit();
     void slotSystemAClicked();
     void slotSystemBClicked();
     void slotSystemCClicked();

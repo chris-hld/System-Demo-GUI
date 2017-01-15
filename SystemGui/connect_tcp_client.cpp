@@ -108,6 +108,13 @@ void connect_viaButton(const char* hostname, int portno)
     connect_me(hostname, portno);
 }
 
+void close_connection(){
+  extern Parameter global_socket;
+  close(global_socket.getSocket());
+  printf("--- Socket closed --- \n");
+};
+
+
 void send_TCP(const char *msg)
 {
     int n;

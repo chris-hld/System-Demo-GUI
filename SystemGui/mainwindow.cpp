@@ -15,13 +15,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // Create and position the button
     stereo_button = new QPushButton("Stereo", this);
     stereo_button->resize(80, 80);
-    stereo_button->move(20, 200);
+    stereo_button->move(20, 150);
     surround_button = new QPushButton("Surround", this);
     surround_button->resize(80, 80);
-    surround_button->move(250, 200);
+    surround_button->move(250, 150);
     wfs_button = new QPushButton("WFS", this);
     wfs_button->resize(80, 80);
-    wfs_button->move(500, 200);
+    wfs_button->move(500, 150);
 
     EXIT = new QPushButton("EXIT", this);
     EXIT->move(10, 10);
@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Do the connection
     connect(EXIT, SIGNAL (clicked()),
-            QApplication::instance(), SLOT (quit()));
+            this,  SLOT (slotConnectExit()));
     connect(connectHost_button, SIGNAL (clicked(bool)),
             this, SLOT (slotConnectClicked(bool)));
 
@@ -52,21 +52,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::slotConnectClicked(bool checked)
 {
+  extern Parameter global_socket;
+  std::thread connectButtonThread (connect_viaButton,
+     global_socket.getHostname(), global_socket.getPortno());
     if (checked) {
       connectHost_button->setText("Connected");
       //connect_viaButton();
-      extern Parameter global_socket;
-      const char* hostname = global_socket.getHostname();
-      const int portno = global_socket.getPortno();
-      std::thread connectButtonThread (connect_viaButton, hostname, portno);
       connectButtonThread.detach();  // don't wait for it
-
     } else {
       connectHost_button->setText("Empty");
     }
 }
 
-//TODO: Connect with TCP
+void MainWindow::slotConnectExit(){
+  close_connection();
+  connectHost_button->setText("Empty");
+  std::terminate();
+};
 void MainWindow::slotSystemAClicked()
 {
   QTextStream out(stdout);
