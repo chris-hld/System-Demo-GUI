@@ -13,6 +13,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // Create and position the button
+    load_button = new QPushButton("Load", this);
+    load_button->move(150, 75);
+    play_button = new QPushButton("Play", this);
+    play_button->move(250, 75);
+    stop_button = new QPushButton("Stop", this);
+    stop_button->move(350, 75);
+
     stereo_button = new QPushButton("Stereo", this);
     stereo_button->resize(80, 80);
     stereo_button->move(20, 150);
@@ -31,6 +38,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // Do the connection
+    connect(load_button, SIGNAL (clicked()),
+            this,  SLOT (slotLoadClicked()));
+    connect(play_button, SIGNAL (clicked()),
+            this,  SLOT (slotPlayClicked()));
+    connect(stop_button, SIGNAL (clicked()),
+            this,  SLOT (slotStopClicked()));
+
     connect(EXIT, SIGNAL (clicked()),
             this,  SLOT (slotConnectExit()));
     connect(connectHost_button, SIGNAL (clicked(bool)),
@@ -64,6 +78,27 @@ void MainWindow::slotConnectClicked(bool checked)
       }
 }
 
+void MainWindow::slotLoadClicked()
+{
+    QTextStream out(stdout);
+    out << "load" << endl;
+    send_TCP("list stereo.wav surround.wav wfs.wav; \n");
+}
+
+void MainWindow::slotPlayClicked()
+{
+    QTextStream out(stdout);
+    out << "play" << endl;
+    send_TCP("play; \n");
+}
+
+void MainWindow::slotStopClicked()
+{
+    QTextStream out(stdout);
+    out << "stop" << endl;
+    send_TCP("stop; \n");
+}
+
 void MainWindow::slotConnectExit(){
     close_connection();
     connectHost_button->setText("Empty");
@@ -74,19 +109,19 @@ void MainWindow::slotSystemAClicked()
 {
     QTextStream out(stdout);
     out << "A" << endl;
-    send_TCP("A \n");
+    send_TCP("A; \n");
 }
 
 void MainWindow::slotSystemBClicked()
 {
   QTextStream out(stdout);
   out << "B" << endl;
-  send_TCP("B \n");
+  send_TCP("B; \n");
 }
 
 void MainWindow::slotSystemCClicked()
 {
     QTextStream out(stdout);
     out << "C" << endl;
-    send_TCP("C \n");
+    send_TCP("C; \n");
 }

@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
      global_socket.setPortno(portno);
    } else{
      global_socket.setHostname("localhost");
-     global_socket.setPortno(8080);
+     global_socket.setPortno(8445);
    }
 
 return app.exec();
