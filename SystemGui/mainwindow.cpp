@@ -52,29 +52,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::slotConnectClicked(bool checked)
 {
-  extern Parameter global_socket;
-  std::thread connectButtonThread (connect_viaButton,
-     global_socket.getHostname(), global_socket.getPortno());
-    if (checked) {
-      connectHost_button->setText("Connected");
-      //connect_viaButton();
-      connectButtonThread.detach();  // don't wait for it
-    } else {
-      connectHost_button->setText("Empty");
-    }
+    extern Parameter global_socket;
+    std::thread connectButtonThread (connect_viaButton,
+       global_socket.getHostname(), global_socket.getPortno());
+      if (checked) {
+        connectHost_button->setText("Connected");
+        //connect_viaButton();
+        connectButtonThread.detach();  // don't wait for it
+      } else {
+        connectHost_button->setText("Empty");
+      }
 }
 
 void MainWindow::slotConnectExit(){
-  close_connection();
-  connectHost_button->setText("Empty");
-  std::terminate();
+    close_connection();
+    connectHost_button->setText("Empty");
+    std::terminate();
 };
+
 void MainWindow::slotSystemAClicked()
 {
-  QTextStream out(stdout);
-  out << "A" << endl;
-  send_TCP("A \n");
-
+    QTextStream out(stdout);
+    out << "A" << endl;
+    send_TCP("A \n");
 }
 
 void MainWindow::slotSystemBClicked()
@@ -86,7 +86,7 @@ void MainWindow::slotSystemBClicked()
 
 void MainWindow::slotSystemCClicked()
 {
-  QTextStream out(stdout);
-  out << "C" << endl;
-  send_TCP("C \n");
+    QTextStream out(stdout);
+    out << "C" << endl;
+    send_TCP("C \n");
 }
