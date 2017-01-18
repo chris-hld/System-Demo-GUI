@@ -14,27 +14,29 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Create and position the button
     load_button = new QPushButton("Load", this);
-    load_button->move(150, 75);
+    load_button->move(210, 20);
     play_button = new QPushButton("Play", this);
-    play_button->move(250, 75);
+    play_button->move(190, 75);
+    play_button->setStyleSheet("background-color: green");
     stop_button = new QPushButton("Stop", this);
-    stop_button->move(350, 75);
+    stop_button->move(290, 75);
+    stop_button->setStyleSheet("background-color: red");
 
     stereo_button = new QPushButton("Stereo", this);
     stereo_button->resize(80, 80);
-    stereo_button->move(20, 150);
+    stereo_button->move(20, 160);
     surround_button = new QPushButton("Surround", this);
     surround_button->resize(80, 80);
-    surround_button->move(250, 150);
+    surround_button->move(250, 160);
     wfs_button = new QPushButton("WFS", this);
     wfs_button->resize(80, 80);
-    wfs_button->move(500, 150);
+    wfs_button->move(500, 160);
 
     EXIT = new QPushButton("EXIT", this);
-    EXIT->move(10, 10);
-    connectHost_button = new QPushButton("connect", this);
+    EXIT->move(10, 20);
+    connectHost_button = new QPushButton("Connect", this);
     connectHost_button->setCheckable( true );
-    connectHost_button->move(100, 10);
+    connectHost_button->move(110, 20);
 
 
     // Do the connection
@@ -50,11 +52,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(connectHost_button, SIGNAL (clicked(bool)),
             this, SLOT (slotConnectClicked(bool)));
 
-    connect(stereo_button, SIGNAL (clicked()),
+    connect(stereo_button, SIGNAL (released()),
             this,  SLOT (slotSystemAClicked()));
-    connect(surround_button, SIGNAL (clicked()),
+    connect(surround_button, SIGNAL (released()),
             this,  SLOT (slotSystemBClicked()));
-    connect(wfs_button, SIGNAL (clicked()),
+    connect(wfs_button, SIGNAL (released()),
             this,  SLOT (slotSystemCClicked()));
 }
 
@@ -89,6 +91,7 @@ void MainWindow::slotPlayClicked()
 {
     QTextStream out(stdout);
     out << "play" << endl;
+    send_TCP("list stereo.wav surround.wav wfs.wav; \n");
     send_TCP("play; \n");
 }
 
