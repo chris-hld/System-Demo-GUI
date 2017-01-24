@@ -124,6 +124,8 @@ void send_TCP(const char *msg)
     n = send(global_socket.getSocket(), msg, strlen(msg), 0);
     if (n < 0){
         error("ERROR writing to socket");
+    } else {
+        printf("Send: %s \n", msg);
     }
 
 }

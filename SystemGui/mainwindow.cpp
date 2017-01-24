@@ -82,24 +82,18 @@ void MainWindow::slotConnectClicked(bool checked)
 
 void MainWindow::slotLoadClicked()
 {
-    QTextStream out(stdout);
-    out << "load" << endl;
-    send_TCP("list stereo.wav surround.wav wfs.wav; \n");
+    send_TCP("list stereo.wav surround.wav wfs.wav;");
 }
 
 void MainWindow::slotPlayClicked()
 {
-    QTextStream out(stdout);
-    out << "play" << endl;
-    send_TCP("list stereo.wav surround.wav wfs.wav; \n");
-    send_TCP("play; \n");
+    MainWindow::slotLoadClicked();
+    send_TCP("play;");
 }
 
 void MainWindow::slotStopClicked()
 {
-    QTextStream out(stdout);
-    out << "stop" << endl;
-    send_TCP("stop; \n");
+    send_TCP("stop;");
 }
 
 void MainWindow::slotConnectExit(){
@@ -110,21 +104,15 @@ void MainWindow::slotConnectExit(){
 
 void MainWindow::slotSystemAClicked()
 {
-    QTextStream out(stdout);
-    out << "A" << endl;
-    send_TCP("A; \n");
+    send_TCP("A;");
 }
 
 void MainWindow::slotSystemBClicked()
 {
-  QTextStream out(stdout);
-  out << "B" << endl;
-  send_TCP("B; \n");
+  send_TCP("B;");
 }
 
 void MainWindow::slotSystemCClicked()
 {
-    QTextStream out(stdout);
-    out << "C" << endl;
-    send_TCP("C; \n");
+    send_TCP("C;");
 }
