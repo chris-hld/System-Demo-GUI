@@ -27,3 +27,18 @@ Starts the GUI and connects to `theHost` port `8060` via TCP.
 
 The remaining buttons send a TCP message when clicked, e.g.:
 The button `Stereo` sends an "A", `Surround` a "B" and `WFS` a "C".
+
+[SoundScape Renderer (SSR)](https://github.com/SoundScapeRenderer/ssr) Example
+---------------------------------
+The default port of the [SSR](https://github.com/SoundScapeRenderer/ssr) is 4711.
+
+>./SystemGui -tcp localhost 4711
+
+Start the [SSR](https://github.com/SoundScapeRenderer/ssr) with newline termination for messages
+
+> ssr-wfs --end-of-message-character=10
+
+Adapt the send slots of `mainwindow.cpp`, e.g. :
+```
+send_TCP("<request><state transport=\"start\"/></request>\n");
+```
